@@ -39,10 +39,16 @@ class Tester(Base):
         self.cli_args = {'d': tester.test_time}
         self.cli_args.update(conf.tester.trex_cli_args)
 
-        path = Path(tester.trex_dir) / 'trex_client' / 'stf'
-        with add_path(str(path)):
-            from trex_stf_lib.trex_client import CTRexClient
-            self.CTRexClient = CTRexClient
+        try:
+            path = Path(tester.trex_dir) / 'trex_client' / 'stf'
+            with add_path(str(path)):
+                from trex_stf_lib.trex_client import CTRexClient
+                self.CTRexClient = CTRexClient
+        except ModuleNotFoundError:
+            path = Path(tester.trex_dir) / 'automation' / 'trex_control_plane' / 'stf'
+            with add_path(str(path)):
+                from trex_stf_lib.trex_client import CTRexClient
+                self.CTRexClient = CTRexClient
 
         self.update_trex_cfg()
 
