@@ -329,7 +329,10 @@ class TipsyManager(object):
             exit()
 
     def get_idx_format_str(self, items):
-        n = max(3, math.ceil(math.log(len(items), 10)))
+        try:
+            n = max(3, math.ceil(math.log(len(items), 10)))
+        except ValueError:
+            n = 3
         return f'%0{n}d'
 
     def config_plots(self):
