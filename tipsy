@@ -66,8 +66,7 @@ def conf_merge(dst, src, props_to_concat=None, property=None):
     if type(dst) == list:
         if type(src) == list:
             return dst + src
-        else:
-            return dst + [src]
+        return dst + [src]
 
     if isinstance(dst, dict):
         if isinstance(src, dict):
